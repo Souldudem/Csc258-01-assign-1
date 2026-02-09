@@ -1,15 +1,23 @@
-# CSC258 Programming Assignment #1 - Client/Server Application
+# CSC258 Programming Assignment #1 – Client/Server Application
+
 **Author:** Soulius Jones  
 **Instructor:** Dr. Abeer Abdel Khaleq  
 
+---
+
 ## 1. Required Environment
-- Python 3.9+ (standard library only; no pip installs required)
-- OS: Windows / macOS / Linux (works on all)
+- Python 3.9 or higher
+- Uses only Python standard library (no external packages)
+- OS: Windows, macOS, or Linux
+
+---
 
 ## 2. Project Files
-- server.py: TCP server, accepts clients, adds receive timestamp, replies
-- client.py: TCP client, sends client_number + message, prints response
-- multi_client.py: runs many clients to demonstrate concurrency
+- `server.py` – TCP server that receives client messages, adds receive time, and replies
+- `client.py` – TCP client that sends a client number and message
+- `multi_client.py` – Demonstrates multiple clients connecting concurrently
+
+---
 
 ## 3. Virtual Environment Setup (Recommended)
 
@@ -25,35 +33,51 @@ python3 -m venv .venv
 source .venv/bin/activate
 python --version
 
-
-4. How to Run
-Step A: Start the server (Terminal 1)
+## 4. How to Run
+Step A: Start the Server (Terminal 1)
 python server.py
-Expected: server prints that it is listening on HOST:PORT.
+Expected output:
 
-Step B: Run one client (Terminal 2)
+Server starts listening on HOST:PORT
+
+Displays connection messages when clients connect
+
+Step B: Run a Single Client (Terminal 2)
 python client.py --client-number 1 --message "Hello Server!"
-Expected: client prints JSON response including a received_time timestamp.
+Expected output:
 
-Step C: Run multiple clients (Terminal 2)
+Client prints JSON response
+
+Response includes server receive timestamp
+
+Step C: Run Multiple Clients
 python multi_client.py --num-clients 10
-Expected: multiple client responses print; server logs multiple accepted connections.
+Expected output:
 
-5. Error Handling Test (for screenshot)
-Stop server with Ctrl+C
+Multiple client responses printed
+
+Server logs multiple accepted connections
+
+## 5. Error Handling Demonstration (Screenshot)
+Stop the server using Ctrl+C
 
 Run:
 
 python client.py --client-number 1 --message "Test when server is off"
-Expected: client prints "Connection refused. Is the server running?"
+Expected output:
 
+Client prints: Connection refused. Is the server running?
 
-## Optional: Google Cloud Shell editor run
-If using Google Cloud Shell:
-1) Upload or create files in Cloud Shell
-2) Run the same commands above:
-   - python server.py
-   - python client.py ...
-   - python multi_client.py ...
-That README is exactly what graders look for.
+## 6. Google Cloud Shell (Optional)
+This project can also be run using Google Cloud Shell:
+
+Upload project files to Cloud Shell
+
+Run the same commands:
+
+python server.py
+
+python client.py ...
+
+python multi_client.py ...
 
