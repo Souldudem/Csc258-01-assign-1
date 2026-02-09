@@ -63,29 +63,39 @@ def recv_json(sock: socket.socket) -> dict:
                     line, _rest = joined.split(b"\n", 1)
                     return json.loads(line.decode("utf-8"))
 
-def start_client (client_number: int, message: str) -> None:
-       request = {"client_number":client_number, "message": message}
+def start_client(client_number: int, message: str) -> None:
+    """
+    Connects to the server, sends a message containing the client number,
+    receives the server response, prints it, and closes the connection.
+    """
+    request = {"client_number": client_number, "message": message}
 
-       try:
-              with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                    sock.settimeout(10)                 # don’t hang forever
-                    sock.connect((HOST, PORT))          # establish connection to server
-                    send_json(sock, request)       # send request payload
-                    response = recv_json(sock)
-                    
-                    print("---- Server Response ----")
-                    print(json.dumps(response, indent=2))     # wait for server response
-               
-       except ConnectionRefusedError:
-                    print("[Client] ERROR: Connection refused. Is the server running?")
-       except socket.timeout:
-                    print("[Client] ERROR: Timeout. Server may be slow or unreachable")
-       except json.JSONDecodeError as e:
-                    print(f"[Client] ERROR: Could not parse server response as JSON: {e}")
-       except OSError as e:
-                    print(f"[Client] ERROR: Socket/OS error: {e}")
-       except Exception as e:
-                    print(f"[Client] ERROR: Unexpected error: {e}")
+    try:
+        # Create TCP socket (IPv4 + TCP stream)
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(10)                # Prevent hanging forever
+            sock.connect((HOST, PORT))         # Establish connection to server
+            send_json(sock, request)            # Send JSON request
+            response = recv_json(sock)          # Receive JSON response
+
+            print("---- Server Response ----")
+            print(json.dumps(response, indent=2))
+
+    except ConnectionRefusedError:
+        print("[Client] ERROR: Connection refused. Is the server running?")
+
+    except socket.timeout:
+        print("[Client] ERROR: Timeout. Server may be slow or unreachable.")
+
+    except json.JSONDecodeError as e:
+        print(f"[Client] ERROR: Could not parse server response as JSON: {e}")
+
+    except OSError as e:
+        print(f"[Client] ERROR: Socket/OS error: {e}")
+
+    except Exception as e:
+        print(f"[Client] ERROR: Unexpected error: {e}")
+
 
 
 def main() -> None:
