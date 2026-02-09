@@ -1,21 +1,40 @@
 #!/usr/bin/env python3
 """
 CSC258 - Distributed Systems
-Programming Assignment #1 (Client-Server / System Architecture)
+Programming Assignment #1: Client/Server Socket Application
 
 Author: Soulius Jones
 Instructor: Dr. Abeer Abdel Khaleq
+Term: Spring 2026 (update if needed)
 
-Client Requirements Implemented:
-- Establish connection to server.
-- Send a message to the server with a client number starting at 1.
-- Receive the message from the server and display it.
-- Close the connection.
-- Handle common networking errors.
+Purpose:
+    This client connects to a TCP server, sends a JSON message containing a client
+    number and hello message, receives a JSON response (with server receive time),
+    prints it, and closes the connection.
 
-Usage examples:
-  python client.py --client-number 1 --message "Hello Server!"
-  python client.py --client-number 2
+Protocol (Client -> Server):
+    One newline-terminated JSON message:
+        {"client_number": <int>, "message": <string>}\n
+
+Protocol (Server -> Client):
+    One newline-terminated JSON message:
+        {
+          "client_number": <int>,
+          "original_message": <string>,
+          "received_time": <ISO-8601 UTC timestamp>,
+          "server_response": <string>
+        }\n
+
+How to run:
+    1) Start server first:  python server.py
+    2) Run client:          python client.py --client-number 1 --message "Hello Server!"
+
+Requirements satisfied:
+    - Establish connection with the server.
+    - Send message containing client number starting from 1.
+    - Receive server response and display it.
+    - Close connection automatically (with-context).
+    - Handle errors (connection refused, timeout, invalid JSON, OS errors).
 """
 
 import socket

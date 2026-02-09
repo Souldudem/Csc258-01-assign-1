@@ -1,24 +1,30 @@
 #!/usr/bin/env python3
 """
 CSC258 - Distributed Systems
-Programming Assignment #1 (Client-Server / System Architecture)
+Programming Assignment #1: Client/Server Socket Application
 
 Author: Soulius Jones
 Instructor: Dr. Abeer Abdel Khaleq
+Term: Spring 2026 (update if needed)
 
-Server Requirements Implemented:
-- Establish a socket connection and listen for clients.
-- Receive data from client containing client number and a hello message.
-- Add the time the message was received and send it back to the client.
-- Handle multiple clients concurrently (thread per connection).
-- Handle common networking errors robustly.
+Purpose:
+    This server listens on a TCP socket, accepts multiple clients, receives a JSON
+    message with a client number and hello message, adds the time the message was
+    received, and sends a JSON response back to the client.
+
+Concurrency:
+    The server supports multiple clients by creating a new thread per accepted
+    connection (thread-per-client model). This allows simultaneous clients.
 
 Protocol:
-- Client sends one JSON line terminated by '\n':
-  {"client_number": 1, "message": "Hello from client 1"}
-- Server replies with one JSON line terminated by '\n':
-  {"client_number": 1, "original_message": "...", "received_time": "...", "server_response": "..."}
+    - Client sends one newline-terminated JSON line:
+        {"client_number": <int>, "message": <string>}\n
+    - Server responds with one newline-terminated JSON line including received_time.
+
+How to run:
+    python server.py
 """
+
 
 import socket
 import threading

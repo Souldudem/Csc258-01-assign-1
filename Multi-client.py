@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """
 CSC258 - Distributed Systems
-Programming Assignment #1
+Programming Assignment #1: Multiple Client Demonstration
 
 Author: Soulius Jones
 
-Multiple Clients Demonstration:
-- Launch multiple clients concurrently to call the same server.
-- Each client sends {client_number, hello_message}
-- Each prints the server response.
+Purpose:
+    Spawns multiple client threads, each sending a unique client_number starting from 1.
+    Demonstrates that the server can handle multiple clients.
 
-Usage:
-  python multi_client.py --num-clients 10
+How to run:
+    python multi_client.py --num-clients 10
 """
 
 import threading
