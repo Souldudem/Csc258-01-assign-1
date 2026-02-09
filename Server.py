@@ -5,7 +5,7 @@ Programming Assignment #1: Client/Server Socket Application
 
 Author: Soulius Jones
 Instructor: Dr. Abeer Abdel Khaleq
-Term: Spring 2026 (update if needed)
+Term: Spring 2026 
 
 Purpose:
     This server listens on a TCP socket, accepts multiple clients, receives a JSON
